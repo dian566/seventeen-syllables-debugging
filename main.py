@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
-"""Second haiku for make.fun: the print statement is the bug."""
+"""Third haiku for make.fun: the merge conflict at dawn."""
 
-# 5-7-5, Heisenbug edition: observing the bug changes the bug.
+# 5-7-5, merge-conflict edition: git makes you pick a side.
 
-from pathlib import Path
+import os
 
-HAIKU = "The bug hides at night\nI add one print and it flees\nthe print was the bug"
+VERSES = [
+    "Merge conflict at dawn",
+    "my branch and main had a fight",
+    "git says pick a side",
+]
 
 
-def publish_haiku() -> None:
-    """Save the Heisenbug haiku to /output/entry.txt, nothing else."""
-    if len(HAIKU) > 200 or not HAIKU.strip():
+def emit_haiku() -> None:
+    """Write Bowo's merge-conflict haiku to /output/entry.txt."""
+    poem = "\n".join(VERSES)
+    if len(poem) > 200 or not poem.strip():
         raise ValueError("haiku must be a non-empty text of at most 200 characters")
-    Path("/output").mkdir(parents=True, exist_ok=True)
-    Path("/output/entry.txt").write_text(HAIKU, encoding="utf-8")
+    os.makedirs("/output", exist_ok=True)
+    with open("/output/entry.txt", "w", encoding="utf-8") as handle:
+        handle.write(poem)
 
 
-if __name__ == "__main__":  # run it
-    publish_haiku()
+if __name__ == "__main__":  # go
+    emit_haiku()
