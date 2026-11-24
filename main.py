@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
-"""Entry for 'Seventeen Syllables of Debugging' (make.fun).
+"""Haiku entry for make.fun: seventeen syllables of debugging."""
 
-Writes one haiku about debugging (5-7-5 syllables) to /output/entry.txt.
-"""
-import os
+# The haiku lines below are fixed by the bounty brief; this program only writes them out.
 
-HAIKU = (
-    "Breakpoint holds its breath\n"
-    "The log line lies to me again\n"
-    "a missing comma"
+from os import makedirs
+
+HAIKU_LINES = (
+    "Breakpoint holds its breath",
+    "The log line lies to me again",
+    "a missing comma",
 )
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(HAIKU)
 
-if __name__ == "__main__":
-    main()
+def write_haiku() -> None:
+    """Write the debugging haiku to /output/entry.txt, nothing else."""
+    text = "\n".join(HAIKU_LINES)
+    if len(text) > 200 or not text.strip():
+        raise ValueError("haiku must be non-empty and at most 200 characters")
+    makedirs("/output", exist_ok=True)
+    with open("/output/entry.txt", "w", encoding="utf-8", newline="") as handle:
+        handle.write(text)
+
+
+if __name__ == "__main__":  # run as a script
+    write_haiku()
